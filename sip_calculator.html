@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SIP Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2d3748;
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      background: #e0f7e9;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🧮 SIP Calculator</h2>
+
+  <label for="sip">Monthly Investment (₹)</label>
+  <input type="number" id="sip" placeholder="e.g. 5000">
+
+  <label for="rate">Expected Annual Return (%)</label>
+  <input type="number" id="rate" placeholder="e.g. 12">
+
+  <label for="years">Investment Duration (Years)</label>
+  <input type="number" id="years" placeholder="e.g. 10">
+
+  <button onclick="calculateSIP()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateSIP() {
+      let P = parseFloat(document.getElementById("sip").value);
+      let annualRate = parseFloat(document.getElementById("rate").value);
+      let years = parseFloat(document.getElementById("years").value);
+
+      if (isNaN(P) || isNaN(annualRate) || isNaN(years)) {
+        document.getElementById("result").innerHTML = "Please fill in all fields.";
+        return;
+      }
+
+      let r = annualRate / 12 / 100;
+      let n = years * 12;
+      let FV = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+
+      document.getElementById("result").innerHTML =
+        `📈 Future Value: <strong>₹${FV.toFixed(2)}</strong>`;
+    }
+  </script>
+
+</body>
+</html>
